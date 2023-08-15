@@ -3,7 +3,7 @@ body{
     background: linear-gradient(90deg, rgba(0,154,250,1) 0%, rgba(138,228,232,1) 50%, rgba(0,154,250,1) 100%);}
 
 .calculadora {
-    background-color: rgb(252, 17, 17);
+    background-color: black;
     width: 40vh;
     height: 33vh;
     text-align: center;
