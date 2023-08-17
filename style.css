@@ -1,0 +1,44 @@
+body{
+    background: rgb(0,154,250);
+    background: linear-gradient(90deg, rgba(0,154,250,1) 0%, rgba(138,228,232,1) 50%, rgba(0,154,250,1) 100%);}
+
+.calculadora {
+    background-color: hwb(0 14% 86%);
+    width: 40vh;
+    height: 33vh;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.calculadora h1 {
+    padding-top: 2vh;
+    color: white;
+    text-shadow: 5px 5px 5px black;
+}
+
+
+.formInput {
+    width: 38vh;
+    height: 3vh;
+    margin-bottom: 2vh;
+    border: none;
+}
+
+#resultado {
+    margin-top: 40px;
+    padding-top: 20px;
+    background-color: hwb(118 14% 27%);
+    width: 40vh;
+    height: 8vh;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 1.5vh;
+
+}
+
+.contenedor{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+}
