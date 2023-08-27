@@ -1,12 +1,14 @@
-let cant =  parseFloat(campoVacio("Ingrese Cantidad de Productos"));
+/** Se crea constructor de Objetos  */
 
-let nombreProducto = "";
-let precioFinal = ""; 
-
-for (
-  let i = 0 ; i < cant; i++){
-    consulta()
+class Productos {
+  constructor (nombre, cantidad, subtotal){
+      this.nombre = nombre 
+      this.cantidad = cantidad
+      this.subtotal = subtotal
   }
+  }
+
+/** Calcula el descuento y devuelve el nombre del producto y le precio  final con descuento aplicado  */
 
 function consulta (){
 
@@ -27,11 +29,11 @@ function consulta (){
   + "%\nEl descuento es de: $" + desc 
   + "\nDebe abonar: $" + subtotal);
     
-  return(
-    nombreProducto = nombre,
-    precioFinal = subtotal)
+  carrito.push(new Productos (nombre, cantidad, subtotal))
 
 }
+
+/** Funcion encargada de verificar que ingresen datos validos */
 
 function campoVacio(pregunta) {
     let error;
@@ -45,22 +47,23 @@ function campoVacio(pregunta) {
     }
   }
   
+  /** Se declara el array que toma resultado de la function: consulta */
 
 const carrito = [];
 
-  for (let i = 0 ; i < cant; i++){
-  
-  const produc = nombreProducto;
-  const produc_precio = precioFinal; 
-  const final = ("\nProducto: " + produc + "\n" + "Precio: $" + produc_precio);
 
-  /* let subtotalFinal = precioFinal  */
-  
+/** Se ingresa cantidad de productos  */
 
-  carrito.push(final /* + "Subtotal: $" + subtotalFinal */)
-  }
+let cant =  parseFloat(campoVacio("Ingrese Cantidad de Productos"));
 
-alert(carrito)
+for (
+  let i = 0 ; i < cant; i++){
+    consulta()
+   }
+
+console.log(carrito) 
+
 
 
 /* PreEntrega N°2 - Levanti, Conrado */
+
