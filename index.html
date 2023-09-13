@@ -13,13 +13,19 @@
 
     <div class="contenedor">
         <div class="calculadora">
-            <h1>Calculadora de Descuento</h1>
-            <br>
-            <input type="number" placeholder="Ingrese Monto" id="precio" class="formInput" required>
-            <input type="number" placeholder="Ingrese cantidad"  id="cantidad" class="formInput" required>
-            <input type="number" placeholder="Ingrese % de Descuento" id="descuento" class="formInput" required>
-            <input type="submit" class="formInput">
-            <div id="resultado"></div>
+            <form id="form">
+                <h1>Calculadora de Descuento</h1>
+                <br>
+                <input type="text" placeholder="Nombre Producto" id="nombreProducto" class="formInput">
+                <input type="number" placeholder="Ingrese Monto" id="precioForm" class="formInput">
+                <input type="number" placeholder="Ingrese cantidad"  id="cantidadForm" class="formInput">
+                <input type="number" placeholder="Ingrese % de Descuento" id="descuentoForm" class="formInput">
+                <input type="submit" value="Agregar al Carrito" class="formInput">
+                <input type="button" value="Borrar Ultimo Ingreso" id="btnBorrar" class="formInput">
+                <input type="button" value="Borrar Historial" id="btnBorrarHist" class="formInput">
+                <div id="error"></div>
+                <div id="resultado"></div>
+            </form>
         </div>
         </div>
     </div>
@@ -28,6 +34,6 @@
     
 </body>
 
-<!-- PreEntrega N°2 - Levanti, Conrado -->
+<!-- PreEntrega N°3 - Levanti, Conrado -->
 
 </html>

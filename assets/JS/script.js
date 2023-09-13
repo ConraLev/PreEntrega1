@@ -1,69 +1,124 @@
+
+
+
 /** Se crea constructor de Objetos  */
 
-class Productos {
+class Producto {
   constructor (nombre, cantidad, subtotal){
-      this.nombre = nombre 
-      this.cantidad = cantidad
-      this.subtotal = subtotal
+      this.nombre = nombre;
+      this.cantidad = cantidad ;
+      this.subtotal = subtotal ; 
   }
+}
+
+/** Se declara el array que toma resultado de la function: consulta */
+
+let carrito = [];
+const carritoHistorial = localStorage.getItem("producto");
+  if(carritoHistorial){
+      carrito = JSON.parse(carritoHistorial);
+      resultado.innerHTML = carrito ;
   }
+ 
+/* Se declaran las variables */
+
+let formIngresoProd = document.querySelector("form");
+let nombre = document.querySelector("nombreProducto");
+let precio = document.querySelector("precioForm");
+let cantidad = document.querySelector("cantidadForm");
+let descuento = document.querySelector("#descuentoForm");
+
+
+
+
+/** Escucha el form y se encargada de verificar que ingresen datos validos */
+
+formIngresoProd?.addEventListener("submit", (e) => {
+  e.preventDefault()
+  let ok = false 
+  let errors = "" ;
+  
+
+    if(nombreProducto.value.length < 2){
+      errors += 'Ingrese Nombre Valido<br>';
+      ok = true ;
+    }
+
+    if(nombreProducto.value.length > 20){
+      errors += 'Nombre muy largo<br>';
+      ok = true ;
+    }
+    
+    if(precioForm.value.length < 1){
+      errors += 'Ingresar Monto valido<br>';
+      ok = true ;
+    }
+
+    if(cantidadForm.value.length < 1){
+      errors += 'Ingresar cantidad valida<br>';
+      ok = true ;
+    }
+
+    if(descuentoForm.value.length >= 100){
+      errors += 'Maxima cantidad de unidades alcanzada<br>';
+      ok = true ;
+    }
+
+    if(descuentoForm.value.length < 1){
+      errors += 'Ingresar descuento valido<br>';
+      ok = true ;
+    }
+
+    if(ok){
+      error.innerHTML = errors;
+      document.getElementById("error").style.display ="block";
+      document.getElementById("resultado").style.display ="none";
+    }
+
+    if(!ok){
+      consulta(nombre, precio, cantidad, descuento) ;
+      document.getElementById("resultado").style.display ="block";
+      document.getElementById("error").style.display ="none";
+      resultado.innerHTML = carrito ;
+  }
+
+  /*Botones para borrar storage */
+
+  btnBorrar.addEventListener('click', () => {
+    carrito.pop();
+    resultado.innerHTML = carrito ;
+  });
+  
+  
+  btnBorrarHist.addEventListener('click', () => {
+    localStorage.clear()
+  });
+}
+)
+
+
 
 /** Calcula el descuento y devuelve el nombre del producto y le precio  final con descuento aplicado  */
 
+
 function consulta (){
+  
 
   let  desc, compra, subtotal;
 
-  let nombre = campoVacio("Ingrese Nombre de Producto")
-  let precio = parseFloat(campoVacio("Ingrese Monto"));
-  let cantidad = parseFloat(campoVacio("Ingrese Cantidad"));
-  let descuento = parseFloat(campoVacio("Ingrese Descuento")); 
-
   compra = precio * cantidad;
   desc = compra / 100 * descuento;
-  subtotal = compra - desc;
+  subtotal = compra - desc; 
 
-  alert ("Producto Ingresado: " + nombre
-  + "\nTotal Sin Descuento: $" + compra 
-  + "\nEl descuento ingresado es de: " + descuento 
-  + "%\nEl descuento es de: $" + desc 
-  + "\nDebe abonar: $" + subtotal);
-    
-  carrito.push(new Productos (nombre, cantidad, subtotal))
+  const nuevoProducto = new Producto( nombre , cantidad , subtotal);
+  carrito.push (nuevoProducto);
+  localStorage.setItem("producto", JSON.stringify(carrito));
 
-}
-
-/** Funcion encargada de verificar que ingresen datos validos */
-
-function campoVacio(pregunta) {
-    let error;
-    while (true) {
-      error = (prompt(pregunta));
-      
-      if (error !== '')
-        return error;
-        
-      alert("Ingrese un dato valido");
-    }
-  }
-  
-  /** Se declara el array que toma resultado de la function: consulta */
-
-const carrito = [];
-
-
-/** Se ingresa cantidad de productos  */
-
-let cant =  parseFloat(campoVacio("Ingrese Cantidad de Productos"));
-
-for (
-  let i = 0 ; i < cant; i++){
-    consulta()
-   }
+} 
 
 console.log(carrito) 
 
 
 
-/* PreEntrega N°2 - Levanti, Conrado */
+/* PreEntrega N°3 - Levanti, Conrado */
 
