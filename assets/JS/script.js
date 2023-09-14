@@ -17,17 +17,30 @@ let carrito = [];
 const carritoHistorial = localStorage.getItem("producto");
   if(carritoHistorial){
       carrito = JSON.parse(carritoHistorial);
+      resultado.style.display ="block";
       resultado.innerHTML = carrito ;
   }
  
 /* Se declaran las variables */
 
 let formIngresoProd = document.querySelector("form");
-let nombre = document.querySelector("nombreProducto");
+let nombre = document.querySelector("#nombreProducto");
 let precio = document.querySelector("precioForm");
 let cantidad = document.querySelector("cantidadForm");
-let descuento = document.querySelector("#descuentoForm");
+let descuento = document.querySelector("descuentoForm");
 
+
+  /*Botones para borrar storage */
+
+  btnBorrar.addEventListener('click', () => {
+    carrito.pop();
+    resultado.innerHTML = carrito ;
+  });
+  
+  
+  btnBorrarHist.addEventListener('click', () => {
+    localStorage.clear()
+  });
 
 
 
@@ -82,17 +95,6 @@ formIngresoProd?.addEventListener("submit", (e) => {
       resultado.innerHTML = carrito ;
   }
 
-  /*Botones para borrar storage */
-
-  btnBorrar.addEventListener('click', () => {
-    carrito.pop();
-    resultado.innerHTML = carrito ;
-  });
-  
-  
-  btnBorrarHist.addEventListener('click', () => {
-    localStorage.clear()
-  });
 }
 )
 
@@ -101,7 +103,7 @@ formIngresoProd?.addEventListener("submit", (e) => {
 /** Calcula el descuento y devuelve el nombre del producto y le precio  final con descuento aplicado  */
 
 
-function consulta (){
+function consulta (nombre, precio, cantidad, descuento){
   
 
   let  desc, compra, subtotal;
@@ -113,7 +115,6 @@ function consulta (){
   const nuevoProducto = new Producto( nombre , cantidad , subtotal);
   carrito.push (nuevoProducto);
   localStorage.setItem("producto", JSON.stringify(carrito));
-
 } 
 
 console.log(carrito) 
