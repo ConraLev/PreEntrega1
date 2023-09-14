@@ -1,4 +1,11 @@
+ 
+/* Se declaran las variables */
 
+const formIngresoProd = document.querySelector("#form");
+const nombre = document.querySelector("#nombreProducto").value;
+const precio = document.querySelector("#precioForm").value;
+const cantidad = document.querySelector("#cantidadForm").value;
+const descuento = document.querySelector("#descuentoForm").value;
 
 
 /** Se crea constructor de Objetos  */
@@ -14,21 +21,13 @@ class Producto {
 /** Se declara el array que toma resultado de la function: consulta */
 
 let carrito = [];
-const carritoHistorial = localStorage.getItem("producto");
+const carritoHistorial = localStorage.getItem('producto');
   if(carritoHistorial){
       carrito = JSON.parse(carritoHistorial);
       resultado.style.display ="block";
       resultado.innerHTML = carrito ;
   }
  
-/* Se declaran las variables */
-
-let formIngresoProd = document.querySelector("form");
-let nombre = document.querySelector("#nombreProducto");
-let precio = document.querySelector("precioForm");
-let cantidad = document.querySelector("cantidadForm");
-let descuento = document.querySelector("descuentoForm");
-
 
   /*Botones para borrar storage */
 
@@ -40,6 +39,7 @@ let descuento = document.querySelector("descuentoForm");
   
   btnBorrarHist.addEventListener('click', () => {
     localStorage.clear()
+    location.reload()
   });
 
 
@@ -89,10 +89,11 @@ formIngresoProd?.addEventListener("submit", (e) => {
     }
 
     if(!ok){
-      consulta(nombre, precio, cantidad, descuento) ;
+      consulta() ;
       document.getElementById("resultado").style.display ="block";
       document.getElementById("error").style.display ="none";
       resultado.innerHTML = carrito ;
+
   }
 
 }
@@ -105,14 +106,14 @@ formIngresoProd?.addEventListener("submit", (e) => {
 
 function consulta (nombre, precio, cantidad, descuento){
   
-
+ 
   let  desc, compra, subtotal;
 
   compra = precio * cantidad;
   desc = compra / 100 * descuento;
   subtotal = compra - desc; 
 
-  const nuevoProducto = new Producto( nombre , cantidad , subtotal);
+  let nuevoProducto = new Producto ( nombre , cantidad , subtotal);
   carrito.push (nuevoProducto);
   localStorage.setItem("producto", JSON.stringify(carrito));
 } 
