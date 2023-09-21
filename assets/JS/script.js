@@ -1,39 +1,9 @@
- 
-/* Se declaran las variables */
 
-const formIngresoProd = document.querySelector("#form");
-const nombre = document.querySelector("#nombreProducto").value;
-const precio = document.querySelector("#precioForm").value;
-const cantidad = document.querySelector("#cantidadForm").value;
-const descuento = document.querySelector("#descuentoForm").value;
-
-
-/** Se crea constructor de Objetos  */
-
-class Producto {
-  constructor (nombre, cantidad, subtotal){
-      this.nombre = nombre;
-      this.cantidad = cantidad ;
-      this.subtotal = subtotal ; 
-  }
-}
-
-/** Se declara el array que toma resultado de la function: consulta */
-
-let carrito = [];
-const carritoHistorial = localStorage.getItem('producto');
-  if(carritoHistorial){
-      carrito = JSON.parse(carritoHistorial);
-      resultado.style.display ="block";
-      resultado.innerHTML = carrito ;
-  }
- 
-
-  /*Botones para borrar storage */
+/* Botones para borrar storage */
 
   btnBorrar.addEventListener('click', () => {
     carrito.pop();
-    resultado.innerHTML = carrito ;
+    mostrarCarrito(); 
   });
   
   
@@ -44,13 +14,21 @@ const carritoHistorial = localStorage.getItem('producto');
 
 
 
-/** Escucha el form y se encargada de verificar que ingresen datos validos */
+/** Escucha el Form */
 
 formIngresoProd?.addEventListener("submit", (e) => {
   e.preventDefault()
   let ok = false 
   let errors = "" ;
+
+  /** Se toman las variables del formulario */
+
+  let nombre = document.querySelector("#nombreProducto").value;
+  let precio = parseFloat(document.querySelector("#precioForm").value);
+  let cantidad = parseInt(document.querySelector("#cantidadForm").value);
+  let descuento = parseInt(document.querySelector("#descuentoForm").value);
   
+  /** Corrobora que se ingresen datos validos */
 
     if(nombreProducto.value.length < 2){
       errors += 'Ingrese Nombre Valido<br>';
@@ -72,8 +50,8 @@ formIngresoProd?.addEventListener("submit", (e) => {
       ok = true ;
     }
 
-    if(descuentoForm.value.length >= 100){
-      errors += 'Maxima cantidad de unidades alcanzada<br>';
+    if(descuentoForm.value >= 100){
+      errors += 'Descuento ingresado no valido<br>';
       ok = true ;
     }
 
@@ -82,27 +60,27 @@ formIngresoProd?.addEventListener("submit", (e) => {
       ok = true ;
     }
 
+    /** Muestras los errores  */
+
     if(ok){
       error.innerHTML = errors;
       document.getElementById("error").style.display ="block";
       document.getElementById("resultado").style.display ="none";
     }
 
+    /** Si todo Ok, realiza funcion consulta y muestra resultado */
+
     if(!ok){
-      consulta() ;
+      consulta(nombre, cantidad, precio, descuento) ;
       document.getElementById("resultado").style.display ="block";
       document.getElementById("error").style.display ="none";
-      resultado.innerHTML = carrito ;
-
+      mostrarCarrito();
   }
 
 }
 )
 
-
-
-/** Calcula el descuento y devuelve el nombre del producto y le precio  final con descuento aplicado  */
-
+/** Funcion para cualcular descuento */
 
 function consulta (nombre, precio, cantidad, descuento){
   
@@ -113,13 +91,37 @@ function consulta (nombre, precio, cantidad, descuento){
   desc = compra / 100 * descuento;
   subtotal = compra - desc; 
 
+  /** Se genera un nuevo producto con la clase declarada en const.js y se pushea al carrito */
+
   let nuevoProducto = new Producto ( nombre , cantidad , subtotal);
+
   carrito.push (nuevoProducto);
+
+  /** Guarda el producto cargado en el LocalStorage */
+
   localStorage.setItem("producto", JSON.stringify(carrito));
 } 
 
-console.log(carrito) 
 
+/** Función para mostrar los productos en el carrito */
+
+function mostrarCarrito() {
+
+  let carritoHtml = '<ul>'; // Inicia una lista no ordenada
+
+  // Itera sobre los productos en el carrito y construye elementos de lista para cada uno
+
+  carrito.forEach((producto) => {
+
+    carritoHtml += `<li>Nombre: ${producto.nombre}, Cantidad: ${producto.cantidad}, Subtotal: ${producto.subtotal}</li>`;
+
+  });
+
+  carritoHtml += '</ul>'; // Cierra la lista no ordenada
+
+  resultado.innerHTML = carritoHtml; // Asigna la representación HTML al elemento resultado
+
+}
 
 
 /* PreEntrega N°3 - Levanti, Conrado */
