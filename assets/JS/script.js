@@ -1,21 +1,4 @@
-/* Se declaran las variables */
 
-const formIngresoProd = document.querySelector("#form");
-const resultado = document.querySelector("#lista");
-const error = document.querySelector("#error");
-const btnBorrar = document.querySelector("#btnBorrar");
-const btnBorrarHist = document.querySelector("#btnBorrarHist");
-
-
-/** Se crea constructor de Objetos  */
-
-class Producto {
-  constructor (nombre, cantidad, subtotal){
-      this.nombre = nombre;
-      this.cantidad = cantidad ;
-      this.subtotal = subtotal ; 
-  }
-}
 
 /** Se declara el array que toma resultado de la function: consulta */
 
@@ -136,17 +119,17 @@ function mostrarCarrito() {
 
   carrito.forEach((producto) => {
 
-    listaCarrito += `<li>Nombre: ${producto.nombre}, Cantidad: ${producto.cantidad}, Subtotal: ${producto.subtotal}</li>`;
+    listaCarrito += `<li>Nombre: ${producto.nombre}, Cantidad: ${producto.cantidad}, Subtotal: $` + (producto.subtotal).toFixed(2) +`</li>`;
 
   });
 
-  let total = 0
+ 
 
   carrito.forEach((producto) => {
    
     total += producto.subtotal;
    
-    totalFinal.innerHTML= `TOTAL FINAL <br> $${total}`
+    totalFinal.innerHTML= `TOTAL FINAL <br>` + (total).toFixed(2)
     totalFinal.style.display="block";
 
   });

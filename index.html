@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/CSS/style.css">
-   <script src="assets/JS/script.js" async></script>
-   <script src="assets/JS/clima.js" async></script>
+    <script src="assets/JS/var.js" async></script>
+    <script src="assets/JS/script.js" async></script>
+    <script src="assets/JS/clima.js" async></script>
    <title>Calculadora de descuento</title>
 </head>
 <body>
@@ -25,9 +26,9 @@
                 <h1>Calculadora de Descuento</h1>
                 <br>
                 <input type="text" placeholder="Nombre Producto" id="nombreProducto" class="formInput">
-                <input type="number" placeholder="Ingrese Monto" id="precioForm" class="formInput">
+                <input type="number" placeholder="Ingrese Monto" id="precioForm" class="formInput" step="any">
                 <input type="number" placeholder="Ingrese cantidad"  id="cantidadForm" class="formInput">
-                <input type="number" placeholder="Ingrese % de Descuento" id="descuentoForm" class="formInput">
+                <input type="number" placeholder="Ingrese % de Descuento" id="descuentoForm" class="formInput" step="any">
                 <input type="submit" value="Agregar al Carrito" class="formInput">
                 <input type="button" value="Borrar Ultimo Ingreso" id="btnBorrar" class="formInput">
                 <input type="button" value="Borrar Historial" id="btnBorrarHist" class="formInput">
