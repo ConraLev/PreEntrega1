@@ -79,3 +79,39 @@ background: linear-gradient(0deg, rgba(0,106,157,1) 0%, rgba(0,159,236,1) 100%);
 
 }
 
+
+.contClima{
+    background-color: lightblue;
+    height: 80px;
+    display: flex;
+}
+
+.loc{
+    color: black;
+    padding: 30px 20px 35px 20px ;
+    font-size: 2vh;
+}
+
+
+.icono{
+    display: flex;
+    position: relative;
+    margin-left: 140vh;
+    
+}
+
+.temp{
+    color: black;
+    font-size: 2vh;
+    padding-top: 30px;
+}
+
+.descr{
+    color: black;
+    font-size: 2vh;
+    padding-top: 30px;
+    padding-left: 20px;
+
+
+}
+
