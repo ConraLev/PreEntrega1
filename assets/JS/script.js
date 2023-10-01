@@ -1,9 +1,42 @@
+/* Se declaran las variables */
+
+const formIngresoProd = document.querySelector("#form");
+const resultado = document.querySelector("#lista");
+const error = document.querySelector("#error");
+const btnBorrar = document.querySelector("#btnBorrar");
+const btnBorrarHist = document.querySelector("#btnBorrarHist");
+
+
+/** Se crea constructor de Objetos  */
+
+class Producto {
+  constructor (nombre, cantidad, subtotal){
+      this.nombre = nombre;
+      this.cantidad = cantidad ;
+      this.subtotal = subtotal ; 
+  }
+}
+
+/** Se declara el array que toma resultado de la function: consulta */
+
+let carrito = [];
+const carritoHistorial = localStorage.getItem('producto');
+  if(carritoHistorial){
+      carrito = JSON.parse(carritoHistorial);
+      lista.style.display ="block";
+      mostrarCarrito();
+  }
 
 /* Botones para borrar storage */
 
   btnBorrar.addEventListener('click', () => {
     carrito.pop();
     mostrarCarrito(); 
+
+    if(carrito == ""){
+      lista.style.display ="none";
+    }
+
   });
   
   
@@ -12,11 +45,10 @@
     location.reload()
   });
 
-
-
 /** Escucha el Form */
 
-formIngresoProd?.addEventListener("submit", (e) => {
+
+formIngresoProd.addEventListener("submit", (e) => {
   e.preventDefault()
   let ok = false 
   let errors = "" ;
@@ -30,49 +62,40 @@ formIngresoProd?.addEventListener("submit", (e) => {
   
   /** Corrobora que se ingresen datos validos */
 
-    if(nombreProducto.value.length < 2){
+    if(nombreProducto.value.length < 3 || nombreProducto.value.length > 20){
       errors += 'Ingrese Nombre Valido<br>';
       ok = true ;
     }
 
-    if(nombreProducto.value.length > 20){
-      errors += 'Nombre muy largo<br>';
-      ok = true ;
-    }
-    
     if(precioForm.value.length < 1){
       errors += 'Ingresar Monto valido<br>';
       ok = true ;
     }
 
-    if(cantidadForm.value.length < 1){
+    if(cantidadForm.value < 1 || cantidadForm.value > 100 ){
       errors += 'Ingresar cantidad valida<br>';
       ok = true ;
     }
 
-    if(descuentoForm.value >= 100){
+    if(descuentoForm.value >= 100 || descuentoForm.value.length < 1 ){
       errors += 'Descuento ingresado no valido<br>';
       ok = true ;
     }
 
-    if(descuentoForm.value.length < 1){
-      errors += 'Ingresar descuento valido<br>';
-      ok = true ;
-    }
 
     /** Muestras los errores  */
 
     if(ok){
       error.innerHTML = errors;
       document.getElementById("error").style.display ="block";
-      document.getElementById("resultado").style.display ="none";
+      document.getElementById("lista").style.display ="none";
     }
 
     /** Si todo Ok, realiza funcion consulta y muestra resultado */
 
     if(!ok){
       consulta(nombre, cantidad, precio, descuento) ;
-      document.getElementById("resultado").style.display ="block";
+      document.getElementById("lista").style.display ="block";
       document.getElementById("error").style.display ="none";
       mostrarCarrito();
   }
@@ -107,22 +130,37 @@ function consulta (nombre, precio, cantidad, descuento){
 
 function mostrarCarrito() {
 
-  let carritoHtml = '<ul>'; // Inicia una lista no ordenada
+  let listaCarrito = '<ul>'; // Inicia una lista no ordenada
 
   // Itera sobre los productos en el carrito y construye elementos de lista para cada uno
 
   carrito.forEach((producto) => {
 
-    carritoHtml += `<li>Nombre: ${producto.nombre}, Cantidad: ${producto.cantidad}, Subtotal: ${producto.subtotal}</li>`;
+    listaCarrito += `<li>Nombre: ${producto.nombre}, Cantidad: ${producto.cantidad}, Subtotal: ${producto.subtotal}</li>`;
 
   });
 
-  carritoHtml += '</ul>'; // Cierra la lista no ordenada
+  let total = 0
 
-  resultado.innerHTML = carritoHtml; // Asigna la representación HTML al elemento resultado
+  carrito.forEach((producto) => {
+   
+    total += producto.subtotal;
+   
+    totalFinal.innerHTML= `TOTAL FINAL <br> $${total}`
+    totalFinal.style.display="block";
+
+  });
+
+  if(carrito == ""){
+    totalFinal.style.display="none";
+  }
+
+  listaCarrito += '</ul>'; // Cierra la lista no ordenada
+
+  lista.innerHTML = listaCarrito; // Asigna la representación HTML al elemento resultado
 
 }
 
 
-/* PreEntrega N°3 - Levanti, Conrado */
+/* ProyectoFinal - Levanti, Conrado */
 
