@@ -1,5 +1,3 @@
-
-
 /** Se declara el array que toma resultado de la function: consulta */
 
 let carrito = [];
@@ -14,19 +12,67 @@ const carritoHistorial = localStorage.getItem('producto');
 
   btnBorrar.addEventListener('click', () => {
     carrito.pop();
+    localStorage.setItem("producto", JSON.stringify(carrito));
     mostrarCarrito(); 
 
     if(carrito == ""){
       lista.style.display ="none";
     }
 
+    
   });
   
-  
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  })
+
   btnBorrarHist.addEventListener('click', () => {
-    localStorage.clear()
-    location.reload()
-  });
+    
+
+    swalWithBootstrapButtons.fire({
+      title: 'Borrar historial?',
+      text: "Una vez eliminado no podra recuperarlo",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrar historial!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+  
+          'Borrado!',
+          'Se ah eliminado el historial',
+          'success'
+        )
+
+        localStorage.clear(); 
+
+       setTimeout(function(){
+        location.reload();
+      }, 2000);
+
+        
+
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+
+          'Cancelado',
+          'Se mantiene el historial',
+          'error'
+
+          ); 
+        }})
+    })
+
+      
 
 /** Escucha el Form */
 
@@ -106,6 +152,14 @@ function consulta (nombre, precio, cantidad, descuento){
   /** Guarda el producto cargado en el LocalStorage */
 
   localStorage.setItem("producto", JSON.stringify(carrito));
+
+  Toastify({
+
+    text: `¡Se agrego ${nombre} al carrito! `,
+    position: "center",
+    duration: 1500,
+    
+    }).showToast();
 } 
 
 
@@ -119,7 +173,7 @@ function mostrarCarrito() {
 
   carrito.forEach((producto) => {
 
-    listaCarrito += `<li>Nombre: ${producto.nombre}, Cantidad: ${producto.cantidad}, Subtotal: $` + (producto.subtotal).toFixed(2) +`</li>`;
+    listaCarrito += `<li>Nombre: ${producto.nombre} - Cantidad: ${producto.cantidad} - Subtotal: $` + (producto.subtotal).toFixed(2) +`</li>`;
 
   });
 
@@ -147,4 +201,3 @@ function mostrarCarrito() {
 
 
 /* ProyectoFinal - Levanti, Conrado */
-

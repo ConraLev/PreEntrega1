@@ -6,11 +6,13 @@ const error = document.querySelector("#error");
 const btnBorrar = document.querySelector("#btnBorrar");
 const btnBorrarHist = document.querySelector("#btnBorrarHist");
 const convertor = 273.15 ;
-let icono = document.querySelector(".icono")
-let temperature = document.querySelector(".temp")
-let descriTemp = document.querySelector(".descr")
-let loc = document.querySelector(".loc")
-let total = 0
+let icono = document.querySelector(".icono");
+let temperature = document.querySelector(".temp");
+let descriTemp = document.querySelector(".descr");
+let loc = document.querySelector(".loc");
+let total = 0;
+
+
 
 /** Se crea constructor de Objetos  */
 
