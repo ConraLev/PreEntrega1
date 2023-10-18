@@ -15,6 +15,21 @@ const carritoHistorial = localStorage.getItem('producto');
     localStorage.setItem("producto", JSON.stringify(carrito));
     mostrarCarrito(); 
 
+    Toastify({
+
+       /* Mensaje de borrar  */
+
+      text: `¡Se elimino el producto del carrito!`,
+      position: "center",
+      duration: 1500,
+      style: {
+        background: "linear-gradient(to right, #c75959, #ff0000)",
+      }
+      
+      }).showToast();
+   
+
+
     if(carrito == ""){
       lista.style.display ="none";
     }
@@ -23,7 +38,7 @@ const carritoHistorial = localStorage.getItem('producto');
   });
   
 
-  const swalWithBootstrapButtons = Swal.mixin({
+  let swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: 'btn btn-success',
       cancelButton: 'btn btn-danger'
@@ -155,13 +170,20 @@ function consulta (nombre, precio, cantidad, descuento){
 
   Toastify({
 
-    text: `¡Se agrego ${nombre} al carrito! `,
+  /* Mensaje de carga  */
+
+    text: `¡Se agrego ${nombre} al carrito!`,
     position: "center",
     duration: 1500,
+    style: {
+      background: "linear-gradient(to right, #57c31b, #27ff00)",
+    }
     
     }).showToast();
 } 
 
+/* background: 'background: rgb(87,195,27) ; background: linear-gradient(0deg, rgba(87,195,27,1) 0%, rgba(39,255,0,1) 100%);'
+ */
 
 /** Función para mostrar los productos en el carrito */
 
@@ -177,16 +199,20 @@ function mostrarCarrito() {
 
   });
 
- 
+    mostrarTotal();
 
-  carrito.forEach((producto) => {
-   
+ /*  carrito.forEach((producto) => {
+    
+    
     total += producto.subtotal;
+    
    
     totalFinal.innerHTML= `TOTAL FINAL <br>` + (total).toFixed(2)
     totalFinal.style.display="block";
 
-  });
+  }); */
+
+
 
   if(carrito == ""){
     totalFinal.style.display="none";
@@ -198,6 +224,21 @@ function mostrarCarrito() {
 
 }
 
+
+function mostrarTotal(){
+
+  carrito.forEach((producto) => {
+    
+
+    total += producto.subtotal;
+
+    totalFinal.innerHTML= `TOTAL FINAL <br>` + (total).toFixed(2)
+    totalFinal.style.display="block";
+
+  
+
+  });
+}
 
 
 /* ProyectoFinal - Levanti, Conrado */
