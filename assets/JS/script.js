@@ -6,15 +6,25 @@ const carritoHistorial = localStorage.getItem('producto');
       carrito = JSON.parse(carritoHistorial);
       lista.style.display ="block";
       mostrarCarrito();
+
+      if(carrito == ""){
+        lista.style.display ="none";
+      }
   }
 
 /* Botones para borrar storage */
 
-  btnBorrar.addEventListener('click', () => {
-    carrito.pop();
-    localStorage.setItem("producto", JSON.stringify(carrito));
-    mostrarCarrito(); 
 
+// Escucha btn, borra ultimo item y actualiza carrito antes de mostrarlo
+
+  btnBorrar.addEventListener('click', () => {                  
+    carrito.pop();                                         
+    localStorage.setItem("producto", JSON.stringify(carrito));      
+    mostrarCarrito();                                             
+
+
+//Toast de borrado
+  
     Toastify({
 
        /* Mensaje de borrar  */
@@ -28,15 +38,13 @@ const carritoHistorial = localStorage.getItem('producto');
       
       }).showToast();
    
-
-
     if(carrito == ""){
       lista.style.display ="none";
     }
 
-    
   });
   
+// Mensaje de alerta
 
   let swalWithBootstrapButtons = Swal.mixin({
     customClass: {
