@@ -228,15 +228,14 @@ function mostrarCarrito() {
 function mostrarTotal(){
 
   carrito.forEach((producto) => {
-    
+
 
     total += producto.subtotal;
 
     totalFinal.innerHTML= `TOTAL FINAL <br>` + (total).toFixed(2)
     totalFinal.style.display="block";
 
-  
-
+    
   });
 }
 
