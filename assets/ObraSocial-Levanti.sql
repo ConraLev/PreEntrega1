@@ -1,3 +1,6 @@
+CREATE SCHEMA obra_social;
+USE obra_social;
+
 CREATE TABLE afiliados (
  id_afiliado INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
  dni INT NOT NULL, nombre VARCHAR (30) NOT NULL,
